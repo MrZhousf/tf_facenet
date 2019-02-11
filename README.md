@@ -25,7 +25,8 @@ https://download.csdn.net/download/zsf442553199/10952495
 4. 人脸识别页面：http://127.0.0.1:8090/user/sign_up
 
 ### 相关截图
+以周杰伦为例，此处仅用于学习与研究，莫怪。
 1. 人脸采集页面
 ![](https://github.com/MrZhousf/tf_facenet/blob/master/pic/1.png?raw=true)
 2. 人脸识别页面
-![](https://github.com/MrZhousf/tf_facenet/blob/master/pic/1.png?raw=true)
+![](https://github.com/MrZhousf/tf_facenet/blob/master/pic/2.png?raw=true)
