@@ -1,0 +1,21 @@
+server:
+  # 内网IP
+  host: 127.0.0.1
+  # 端口号
+  port: 8090
+  use_ssl: False
+  ssl_crt: /Users/zhousf/tensorflow/zhousf/tf_facenet/server.crt
+  ssl_key: /Users/zhousf/tensorflow/zhousf/tf_facenet/server.key
+  # debug 生产请关闭
+  debug: True
+  # 秘钥
+  secret_key: ai_2018@jingyougroup.com
+  # GPU显存配比
+  per_process_gpu_memory_fraction: 0.3
+  face_model_file: /Users/zhousf/tensorflow/zhousf/tf_facenet/facenet-master/src/models/20180402-114759/20180402-114759.pb
+  database_url: mysql+pymysql://root:@localhost:3306/face?charset=utf8
+
+
+log:
+  api_log_dir: /Users/zhousf/tensorflow/zhousf/tf_facenet/log/api/
+  error_log_dir: /Users/zhousf/tensorflow/zhousf/tf_facenet/log/error/

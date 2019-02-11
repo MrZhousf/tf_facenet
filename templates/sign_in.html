@@ -1,0 +1,118 @@
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>签到</title>
+     <script src="{{ url_for('static',filename='js/jquery-1.11.3.min.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static',filename='js/cvi_busy_lib.js') }}" type="text/javascript"></script>
+<style type="text/css">
+.div-common{
+    margin: 20px;
+    align: left;
+}
+.div-inline{
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn{
+    margin-left: 20px;
+    margin-right: 20px;
+    align: center;
+}
+</style>
+</head>
+<body>
+{% include 'navigation.html' %}
+<div>
+    <div class="div-inline">
+        <video id="video" width="500px" height="500px" autoplay="autoplay"></video>
+    </div>
+    <div id='message_div' align="center">
+        <div class="div-common"><span>您好，</span><span id='name'></span><span id='sex'></span></div>
+        <div class="div-common"><span>部门：</span><span id='department'></span></div>
+        <div class="div-common"><span id='sign_time'></span></div>
+    </div>
+    <div id='tip_div' align="center"></div>
+    <canvas style="visibility:hidden" id="canvas" width="500px" height="500px"></canvas>
+    <script>
+window.onload = function (){
+    $("#message_div").hide();
+    getMedia();
+};
+
+ref = setInterval(function(){
+    takePhoto();
+},4000);
+
+function getMedia() {
+    let constraints = {
+        video: {width: 500, height: 500},
+        audio: false
+    };
+    let video = document.getElementById("video");
+    let promise = navigator.mediaDevices.getUserMedia(constraints);
+    promise.then(function (MediaStream) {
+        video.srcObject = MediaStream;
+        video.play();
+    });
+}
+
+function takePhoto() {
+    let video = document.getElementById("video");
+    let canvas = document.getElementById("canvas");
+    let ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0, 0, 500, 500);
+    var imgData = canvas.toDataURL('image/jpeg', 1);
+    var data=imgData.substr(22);
+    uploadImages(data)
+}
+
+function uploadImages(localData) {
+    $.ajax({
+        type: "POST",
+        url: "do_sign_in",
+        data: {
+            image: localData
+        },
+        dataType: "json",
+        timeout: 120000,
+        success: function (data) {
+            var res = data.data;
+            if(data.data.code == '000'){
+                sex = res.result.sex;
+                color = 'blue';
+                if(res.result.sex == '男'){
+                    sex = '先生';
+                }else{
+                    sex = '女士';
+                    color = 'red';
+                }
+                sign_time = res.result.sign_time
+                $("#name").html("<b><font color="+color+">"+res.result.name+"</font></b> ");
+                $("#sex").html(sex);
+                $("#sign_time").html(sign_time);
+                $("#department").html("<b>"+res.result.department+"</b>");
+                $("#message_div").show();
+                $("#tip_div").hide();
+                setTimeout('hide_message()',3000);
+            }else if(data.data.code == '003'){
+                $("#tip_div").html("<b>"+res.message+"</b>");
+                $("#tip_div").show();
+                $("#message_div").hide();
+                setTimeout('hide_message()',3000);
+            }
+        }, error: function (XMLHttpRequest, textStatus, errorThrown) {
+        }
+    });
+}
+
+function hide_message() {
+    $("#message_div").hide();
+    $("#tip_div").hide();
+}
+
+</script>
+</div>
+</body>
+</html>

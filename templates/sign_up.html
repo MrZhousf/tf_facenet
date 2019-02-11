@@ -1,0 +1,150 @@
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <script src="{{ url_for('static',filename='js/jquery-1.11.3.min.js') }}" type="text/javascript"></script>
+    <script src="{{ url_for('static',filename='js/cvi_busy_lib.js') }}" type="text/javascript"></script>
+<style type="text/css">
+.div-common{
+    margin: 20px;
+}
+.div-inline{
+    margin: 20px;
+    display: flex;//flex布局
+    justify-content: center;//使子项目水平居中
+    align-items: center;//使子项目垂直居中
+}
+.btn{
+    margin-left: 20px;
+    margin-right: 20px;
+    align: center;
+}
+.select-out-div {
+    width: 160px;
+    overflow: hidden;
+    margin: 20px;;
+}
+select.m-wrap {
+    background-color: #ffffff;
+    background-image: none !important;
+    filter: none !important;
+    border: 1px solid #e5e5e5;
+    outline: none;
+    height: 25px !important;
+    line-height: 25px;
+    padding: 10px;
+}
+
+
+</style>
+</head>
+<body>
+<!--{{user}}-->
+{% include 'navigation.html' %}
+<div class="div-common">姓名：<input id="name" title="员工姓名"/></div>
+<div class="div-common">性别：
+    <input name="sex" type="radio" checked="checked" value="男" />男
+    <input name="sex" type="radio"  value="女"/>女
+</div>
+<div class="posirelative select-out-div">部门：
+    <select id="department" class="m-wrap">
+        <option value="总裁办">总裁办</option>
+        <option value="财务部">财务部</option>
+        <option value="商务部">商务部</option>
+        <option value="行政部" selected="selected">行政部</option>
+        <option value="人事部">人事部</option>
+        <option value="市场部">市场部</option>
+        <option value="技术部">技术部</option>
+        <option value="产品部">产品部</option>
+        <option value="数据部">数据部</option>
+    </select>
+</div>
+<div>
+    <div class="div-inline">
+        <video id="video" width="500px" height="500px" autoplay="autoplay"></video>
+        <div class="btn"><button id="snap" onclick="takePhoto()">拍照</button></div>
+        <canvas id="canvas" width="500px" height="500px"></canvas>
+    </div>
+</div>
+
+
+
+
+<script>
+window.onload = function (){
+    getMedia();
+};
+
+function getMedia() {
+    let constraints = {
+        video: {width: 500, height: 500},
+        audio: false
+    };
+    //获得video摄像头区域
+    let video = document.getElementById("video");
+    //这里介绍新的方法，返回一个 Promise对象
+    // 这个Promise对象返回成功后的回调函数带一个 MediaStream 对象作为其参数
+    // then()是Promise对象里的方法
+    // then()方法是异步执行，当then()前的方法执行完后再执行then()内部的程序
+    // 避免数据没有获取到
+    let promise = navigator.mediaDevices.getUserMedia(constraints);
+    promise.then(function (MediaStream) {
+        video.srcObject = MediaStream;
+        video.play();
+    });
+}
+
+function takePhoto() {
+    //获得Canvas对象
+    let video = document.getElementById("video");
+    let canvas = document.getElementById("canvas");
+    let ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0, 0, 500, 500);
+    var imgData = canvas.toDataURL('image/jpeg', 1);
+    var data=imgData.substr(22);
+    uploadImages(data)
+}
+
+function uploadImages(localData) {
+    var name = $("#name").val();
+    var sex = $("input[name='sex']:checked").val();
+    var department = $("#department").val();
+    var xval = getBusyOverlay('viewport', {
+        color: 'white',
+        opacity: 0.75,
+        text: 'viewport: loading...',
+        style: 'text-shadow: 0 0 3px black;font-weight:bold;font-size:16px;color:white'
+    }, {color: '#ff0', size: 100, type: 'o'});
+    $.ajax({
+        type: "POST",
+        url: "do_sign_up",
+        beforeSend: function () {
+            if (xval) {
+                xval.settext("正在注册，请稍后......");
+            }
+        },
+        data: {
+            image: localData,
+            name: name,
+            sex: sex,
+            department: department
+        },
+        dataType: "json",
+        timeout: 120000,
+        success: function (data) {
+            xval.remove();
+            alert(data.data.message)
+            if(data.data.code=='000'){
+                window.location.href = "sign_in";
+            }
+        }, error: function (XMLHttpRequest, textStatus, errorThrown) {
+            xval.remove();
+            alert("注册失败！");
+        }
+    });
+}
+
+</script>
+
+</body>
+</html>
