@@ -33,10 +33,10 @@ def config_app(flask_app):
 
     @flask_app.after_request
     def after_request(environ):
-        if isinstance(environ, Response):
-            if string_util.not_contain(environ.data, '<html>'):
-                log.API.info(
-                    'response=[request_id:%s, ip:%s, %s]' % (g.request_id, g.real_ip, environ.data))
+        # if isinstance(environ, Response):
+            # if string_util.not_contain(environ.data, '<html>'):
+            #     log.API.info(
+            #         'response=[request_id:%s, ip:%s, %s]' % (g.request_id, g.real_ip, environ.data))
         return environ
 
     @flask_app.errorhandler(405)

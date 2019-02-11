@@ -9,10 +9,12 @@ server:
   # debug 生产请关闭
   debug: True
   # 秘钥
-  secret_key: ai_2018@jingyougroup.com
+  secret_key: ai_2018@zhousf.com
   # GPU显存配比
   per_process_gpu_memory_fraction: 0.3
+  # 模型文件
   face_model_file: /Users/zhousf/tensorflow/zhousf/tf_facenet/facenet-master/src/models/20180402-114759/20180402-114759.pb
+  # 数据库路径
   database_url: mysql+pymysql://root:@localhost:3306/face?charset=utf8
 
 
