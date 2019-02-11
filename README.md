@@ -29,7 +29,7 @@ https://download.csdn.net/download/zsf442553199/10952495
 
 ### 相关截图
 以周杰伦为例，此处仅用于学习与研究，莫怪。
-1. 人脸采集页面
+1. 人脸采集页面（谷歌浏览器打开）
 ![](https://github.com/MrZhousf/tf_facenet/blob/master/pic/1.png?raw=true)
-2. 人脸识别页面
+2. 人脸识别页面（谷歌浏览器打开）
 ![](https://github.com/MrZhousf/tf_facenet/blob/master/pic/2.png?raw=true)
