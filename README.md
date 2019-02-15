@@ -23,6 +23,9 @@ https://github.com/davidsandberg/facenet
 ### 模型下载
 https://download.csdn.net/download/zsf442553199/10952495
 
+### LFW评估测试数据下载
+http://vis-www.cs.umass.edu/lfw/lfw.tgz
+
 ### 项目运行步骤
 1. 修改项目配置文件config_development.yml
 2. 运行app.py
