@@ -46,5 +46,6 @@ train目录下为FaceNet训练业务，训练采用train_tripletloss.py
 3. 导出模型：export.py
 4. 比较：compare.py
 5. 可视化：show_train.py
+6. MTCNN人脸检测与对齐：align_data.py
 
 训练配置文件：train_facenet.py

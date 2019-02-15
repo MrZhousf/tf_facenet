@@ -126,9 +126,9 @@ class FaceNet(object):
             model, _ = self._fetch_max_checkpoint()
         command_compare = 'python %s/compare.py \
                 --model=%s \
-                --image_size=%c \
+                --image_size=%d \
                 %s \
-                %s' % (self.model_dir, self.image_size, model, first_img, second_img)
+                %s' % (self.model_dir, model, self.image_size, first_img, second_img)
         os.system(command_compare)
 
     def show_train(self, port=6006):
@@ -150,15 +150,14 @@ class FaceNet(object):
                     --output_dir=%s \
                     --image_size=%d \
                     --margin=32 \
-                    --detect_multiple_faces=False \
-                    --random_order=store_true'%(align_file, input_dir, output_dir, self.image_size)
+                    --detect_multiple_faces=False'%(align_file, input_dir, output_dir, self.image_size)
         os.system(command_align)
 
 
 class TrainFaceNet(FaceNet):
 
     def __init__(self):
-        data_dir = '/Users/zhousf/tensorflow/zhousf/tf_facenet/facenet-master/src/align/data/lfw/lfw_160'
+        data_dir = '/Users/zhousf/tensorflow/zhousf/data/CASIA-FaceV5_160'
         gpu_with_train = ''
         eval_after_training = False
         pretrained_model = None
