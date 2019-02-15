@@ -138,11 +138,11 @@ def evaluate(sess, enqueue_op, image_paths_placeholder, labels_placeholder, phas
 def parse_arguments(argv):
     parser = argparse.ArgumentParser()
     
-    parser.add_argument('lfw_dir', type=str,
+    parser.add_argument('--lfw_dir', type=str,
         help='Path to the data directory containing aligned LFW face patches.')
     parser.add_argument('--lfw_batch_size', type=int,
         help='Number of images to process in a batch in the LFW test set.', default=100)
-    parser.add_argument('model', type=str, 
+    parser.add_argument('--model', type=str,
         help='Could be either a directory containing the meta_file and ckpt_file or a model protobuf (.pb) file')
     parser.add_argument('--image_size', type=int,
         help='Image size (height, width) in pixels.', default=160)

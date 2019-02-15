@@ -173,6 +173,7 @@ def main(args):
             if args.pretrained_model:
                 print('Restoring pretrained model: %s' % args.pretrained_model)
                 saver.restore(sess, os.path.expanduser(args.pretrained_model))
+                # facenet.load_model(args.pretrained_model)
 
             # Training and validation loop
             epoch = 0
