@@ -115,7 +115,7 @@ def load_and_align_data(image_paths, image_size, margin, gpu_memory_fraction):
 def parse_arguments(argv):
     parser = argparse.ArgumentParser()
     
-    parser.add_argument('model', type=str, 
+    parser.add_argument('--model', type=str,
         help='Could be either a directory containing the meta_file and ckpt_file or a model protobuf (.pb) file')
     parser.add_argument('image_files', type=str, nargs='+', help='Images to compare')
     parser.add_argument('--image_size', type=int,

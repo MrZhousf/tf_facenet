@@ -38,6 +38,10 @@ class FaceNet(object):
         self.epoch_size = epoch_size
 
     def train(self):
+        """
+        训练
+        :return:
+        """
         lfw_dir = self.lfw_dir
         lfw_pairs = self.lfw_pairs
         # 是否训练后进行评估操作
@@ -67,6 +71,10 @@ class FaceNet(object):
         os.system(command_train)
 
     def _fetch_max_checkpoint(self):
+        """
+        获取最大的训练文件
+        :return:
+        """
         dirs = os.listdir(self.models_base_dir)
         max_ckpt = ''
         max_index = 0
@@ -80,14 +88,23 @@ class FaceNet(object):
         return model, max_ckpt
 
     def eval(self):
+        """
+        评估
+        :return:
+        """
         model, _ = self._fetch_max_checkpoint()
         command_eval = 'python %s/validate_on_lfw.py \
-                    --lfw_dir=%s \
                     --model=%s \
-                    --lfw_pairs=%s ' % (self.model_dir, self.lfw_dir, model, self.lfw_pairs)
+                    --image_size=%d \
+                    --lfw_dir=%s \
+                    --lfw_pairs=%s ' % (self.model_dir, model, self.image_size, self.lfw_dir, self.lfw_pairs)
         os.system(command_eval)
 
     def export(self):
+        """
+        导出模型
+        :return:
+        """
         model, max_ckpt = self._fetch_max_checkpoint()
         save_pb_file = model + '/'+max_ckpt+'.pb'
         print(save_pb_file)
@@ -96,9 +113,46 @@ class FaceNet(object):
                   --output_file=%s' % (self.model_dir, model, save_pb_file)
         os.system(command_export)
 
+    def compare(self, first_img, second_img, pb_file=None):
+        """
+        比较两张照片是否同一个人
+        :param first_img:
+        :param second_img:
+        :param pb_file:
+        :return:
+        """
+        model = pb_file
+        if model is None:
+            model, _ = self._fetch_max_checkpoint()
+        command_compare = 'python %s/compare.py \
+                --model=%s \
+                --image_size=%c \
+                %s \
+                %s' % (self.model_dir, self.image_size, model, first_img, second_img)
+        os.system(command_compare)
+
     def show_train(self, port=6006):
+        """
+        可视化训练信息
+        :param port:
+        :return:
+        """
         command_show_train = 'tensorboard --logdir=%s --port=%d' % (self.logs_base_dir, port)
         os.system(command_show_train)
+
+    def align_dataset_mtcnn(self, input_dir, output_dir):
+        """
+        MTCNN 人脸检测、对齐、裁剪
+        """
+        align_file = self.model_dir + '/align'
+        command_align = 'python %s/align_dataset_mtcnn.py \
+                    --input_dir=%s \
+                    --output_dir=%s \
+                    --image_size=%d \
+                    --margin=32 \
+                    --detect_multiple_faces=False \
+                    --random_order=store_true'%(align_file, input_dir, output_dir, self.image_size)
+        os.system(command_align)
 
 
 class TrainFaceNet(FaceNet):

@@ -35,3 +35,13 @@ https://download.csdn.net/download/zsf442553199/10952495
 ![](https://github.com/MrZhousf/tf_facenet/blob/master/pic/1.png?raw=true)
 2. 人脸识别页面（谷歌浏览器打开）
 ![](https://github.com/MrZhousf/tf_facenet/blob/master/pic/2.png?raw=true)
+
+### FaceNet
+train目录下为FaceNet训练业务，训练采用train_tripletloss.py
+1. 训练：train.py
+2. 评估：eval.py
+3. 导出模型：export.py
+4. 比较：compare.py
+5. 可视化：show_train.py
+
+训练配置文件：train_facenet.py

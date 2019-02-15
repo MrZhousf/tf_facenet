@@ -141,8 +141,8 @@ def main(args):
 def parse_arguments(argv):
     parser = argparse.ArgumentParser()
     
-    parser.add_argument('input_dir', type=str, help='Directory with unaligned images.')
-    parser.add_argument('output_dir', type=str, help='Directory with aligned face thumbnails.')
+    parser.add_argument('--input_dir', type=str, help='Directory with unaligned images.')
+    parser.add_argument('--output_dir', type=str, help='Directory with aligned face thumbnails.')
     parser.add_argument('--image_size', type=int,
         help='Image size (height, width) in pixels.', default=182)
     parser.add_argument('--margin', type=int,
