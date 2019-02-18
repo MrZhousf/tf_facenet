@@ -17,7 +17,7 @@ facenet人脸检测与识别项目
 4. flask_sqlalchemy
 5. annoy
 
-### facenet
+### FaceNet源码
 https://github.com/davidsandberg/facenet
 
 ### 模型下载
