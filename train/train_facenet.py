@@ -15,8 +15,21 @@ class FaceNet(object):
                  pretrained_model=None,
                  image_size=160,
                  embedding_size=512,
+                 batch_size=90,
                  max_nrof_epochs=0,
                  epoch_size=1000):
+        """
+        初始化
+        :param data_dir: 数据目录
+        :param gpu_with_train: 指定训练GPU
+        :param eval_after_training: 训练完成后进行评估
+        :param pretrained_model: 预训练模型
+        :param image_size: 图片尺寸
+        :param embedding_size: 嵌入层尺寸
+        :param batch_size: 批处理尺寸，注意：必须是3的倍数
+        :param max_nrof_epochs: 训练周期数
+        :param epoch_size: 每个周期训练次数
+        """
         self.logs_base_dir = os.getcwd() + '/train_dir/log/'
         self.models_base_dir = os.getcwd() + '/train_dir/train/'
         self.gpu_with_train = gpu_with_train
@@ -36,6 +49,7 @@ class FaceNet(object):
         self.max_nrof_epochs = max_nrof_epochs
         # 每个epoch周期的训练次数
         self.epoch_size = epoch_size
+        self.batch_size = batch_size
 
     def train(self):
         """
@@ -149,8 +163,7 @@ class FaceNet(object):
                     --input_dir=%s \
                     --output_dir=%s \
                     --image_size=%d \
-                    --margin=32 \
-                    --detect_multiple_faces=False'%(align_file, input_dir, output_dir, self.image_size)
+                    --margin=32 ' % (align_file, input_dir, output_dir, self.image_size)
         os.system(command_align)
 
 
@@ -160,11 +173,12 @@ class TrainFaceNet(FaceNet):
         data_dir = '/Users/zhousf/tensorflow/zhousf/data/CASIA-FaceV5_160'
         gpu_with_train = ''
         eval_after_training = False
-        pretrained_model = None
+        pretrained_model = '/Users/zhousf/tensorflow/zhousf/tf_facenet/train/train_dir/train/20190218-093738/model-20190218-093738.ckpt-20'
         image_size = 160
         embedding_size = 512
+        batch_size = 3
         max_nrof_epochs = 1
-        epoch_size = 10
+        epoch_size = 5
         FaceNet.__init__(self,
                          data_dir=data_dir,
                          gpu_with_train=gpu_with_train,
@@ -172,6 +186,7 @@ class TrainFaceNet(FaceNet):
                          pretrained_model=pretrained_model,
                          image_size=image_size,
                          embedding_size=embedding_size,
+                         batch_size=batch_size,
                          max_nrof_epochs=max_nrof_epochs,
                          epoch_size=epoch_size)
 
