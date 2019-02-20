@@ -28,6 +28,11 @@ https://download.csdn.net/download/zsf442553199/10952495
 ### LFW评估测试数据下载
 http://vis-www.cs.umass.edu/lfw/lfw.tgz
 
+### 亚洲人脸数据库_CASIA-FaceV5
+原上传者地址：https://download.csdn.net/download/weixin_42179317/10405384
+<br>若无csdn积分可以直接用百度云盘下载：
+<br>https://pan.baidu.com/s/1WS4nooNQgmQHR6EpmrW6dw  密码: sc8b
+
 ### 项目运行步骤
 1. 修改项目配置文件config_development.yml
 2. 运行app.py
