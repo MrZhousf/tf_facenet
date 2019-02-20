@@ -70,8 +70,10 @@ GPU：GeForce GTX 1080Ti
 
 image_size=160, embedding_size=512, batch_size=90, max_nrof_epochs=10, epoch_size=500.
 
-训练时间约45小时
-
+训练时间约45小时<br>
+训练得到模型 20190218-164145.pb<br>
+模型下载地址：https://download.csdn.net/download/zsf442553199/10965981
+<br>
 同样采用LFW数据集进行评估，准确率为68.467%：<br>
 <img src="https://github.com/MrZhousf/tf_facenet/blob/master/pic/4.jpeg?raw=true" width="300"/>
 
