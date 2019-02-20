@@ -59,7 +59,7 @@ train目录下为FaceNet训练业务，训练采用train_tripletloss.py
 * 下载数据并放到相应的目录下如下：
 <br><img src="https://github.com/MrZhousf/tf_facenet/blob/master/pic/10.jpg?raw=true" />
 * 配置参数
-<br><img src="https://github.com/MrZhousf/tf_facenet/blob/master/pic/11.png?raw=true" />
+<br><img src="https://github.com/MrZhousf/tf_facenet/blob/master/pic/12.png?raw=true" />
 
 ### 训练亚洲人脸数据
 可以下载亚洲人脸数据库_CASIA-FaceV5，共500个中国人，每个人5张照片，总共2500张。用create_eval_data.py制作亚洲人脸评估数据集，
