@@ -3,8 +3,11 @@ server:
   host: 127.0.0.1
   # 端口号
   port: 8090
+  # 是否使用ssl协议
   use_ssl: False
+  # ssl协议证书
   ssl_crt: /Users/zhousf/tensorflow/zhousf/tf_facenet/server.crt
+  # ssl协议秘钥
   ssl_key: /Users/zhousf/tensorflow/zhousf/tf_facenet/server.key
   # debug 生产请关闭
   debug: True

@@ -56,9 +56,14 @@ train目录下为FaceNet训练业务，训练采用train_tripletloss.py
 6. MTCNN人脸检测与对齐：align_data.py
 7. 制作评估数据（类似lfw的pairs.txt）：create_eval_data.py
 
+* 下载数据并放到相应的目录下如下：
+<br><img src="https://github.com/MrZhousf/tf_facenet/blob/master/pic/10.jpg?raw=true" />
+* 配置参数
+<br><img src="https://github.com/MrZhousf/tf_facenet/blob/master/pic/11.png?raw=true" />
+
+### 训练亚洲人脸数据
 可以下载亚洲人脸数据库_CASIA-FaceV5，共500个中国人，每个人5张照片，总共2500张。用create_eval_data.py制作亚洲人脸评估数据集，
 这样就可以在训练亚洲人脸业务时进行有效的评估了。
-
 <br>训练配置文件：train_facenet.py
 <br><img src="https://github.com/MrZhousf/tf_facenet/blob/master/pic/3.png?raw=true"/>
 
