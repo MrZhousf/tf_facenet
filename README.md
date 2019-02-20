@@ -78,11 +78,9 @@ CPU：Intel Core I7-6800K x12
 GPU：GeForce GTX 1080Ti
 
 训练参数train_tripletloss.py：
-
-image_size=160, embedding_size=512, batch_size=90, max_nrof_epochs=10, epoch_size=500.
-
-训练时间约45小时<br>
-训练得到模型 20190218-164145.pb<br>
+<br>image_size=160, embedding_size=512, batch_size=90, max_nrof_epochs=10, epoch_size=500.
+<br>训练时间约45小时
+<br>训练得到模型 20190218-164145.pb
 模型下载地址：https://download.csdn.net/download/zsf442553199/10965981
 <br>
 同样采用LFW数据集进行评估，准确率为68.467%：
@@ -91,18 +89,15 @@ image_size=160, embedding_size=512, batch_size=90, max_nrof_epochs=10, epoch_siz
 而官方预训练VGGFace2模型评估准确率为98.5%：
 <br><img src="https://github.com/MrZhousf/tf_facenet/blob/master/pic/5.jpeg?raw=true" width="300"/>
 
-比较下发现针对亚洲人训练后准确率不升反降，不用担心，因为我们用了LFW来评估亚洲人，准确率肯定会下降的，毕竟亚洲人和欧美人长相还是有区别的。
-
-为了验证我们训练的成果是有效的，我们做下以下测试：分别用以上两个模型对同一个亚洲人进行测试看得到的欧式空间距离，如果我们训练的模型的欧式空间距离比官方的模型要小，说明我们的训练是有效的。
+<br>比较下发现针对亚洲人训练后准确率不升反降，不用担心，因为我们用了LFW来评估亚洲人，
+准确率肯定会下降的，毕竟亚洲人和欧美人长相还是有区别的。
+<br>为了验证我们训练的成果是有效的，我们做下以下测试：分别用以上两个模型对同一个亚洲人
+进行测试看得到的欧式空间距离，如果我们训练的模型的欧式空间距离比官方的模型要小，说明我们的训练是有效的。
 
 运行train目录下的compare.py：
-
 <br>找了两张本人不同时期的照片进行测试
-
 <br>测试我们训练的模型，距离为0.6545：
 <br><img src="https://github.com/MrZhousf/tf_facenet/blob/master/pic/8.jpeg?raw=true" width="200"/>
-
 <br>测试官方预训练模型，距离为0.737：
 <br><img src="https://github.com/MrZhousf/tf_facenet/blob/master/pic/9.jpeg?raw=true" width="200"/>
-
 <br>很明显，我们训练的成果还是不错的。接下来，我们可以搜集大量的亚洲人脸数据进行训练，让我们的模型准确率提升到99%应该不是很难的事情。要注意的是训练和评估的数据都要用亚洲人脸数据
