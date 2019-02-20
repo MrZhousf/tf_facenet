@@ -3,7 +3,9 @@ facenet人脸检测与识别项目
 
 
 ### 说明
-通过MTCNN人脸检测模型，从照片中提取人脸图像；
+* 近期研究的课题是孪生网络，看到了FaceNet采用了孪生网络，研究的同时顺带把人脸识别FaceNet实现下，
+做了个简单的人脸识别项目：包含人员登记、人员签到以及FaceNet模型训练、评估、测试、模型导出、数据制作。
+* 通过MTCNN人脸检测模型，从照片中提取人脸图像；
 把人脸图像输入到FaceNet，计算Embedding的特征向量；
 采用annoy进行人脸匹配，比较特征向量间的欧式距离；
 项目利用谷歌浏览器调用电脑摄像头进行人脸采集与识别业务。
@@ -20,7 +22,7 @@ facenet人脸检测与识别项目
 ### FaceNet源码
 https://github.com/davidsandberg/facenet
 
-### 模型下载
+### 官方预训练模型VGGFace2下载
 https://download.csdn.net/download/zsf442553199/10952495
 
 ### LFW评估测试数据下载
@@ -49,4 +51,45 @@ train目录下为FaceNet训练业务，训练采用train_tripletloss.py
 6. MTCNN人脸检测与对齐：align_data.py
 7. 制作评估数据（类似lfw的pairs.txt）：create_eval_data.py
 
+可以下载亚洲人脸数据库_CASIA-FaceV5，共500个中国人，每个人5张照片，总共2500张。用create_eval_data.py制作亚洲人脸评估数据集，这样就可以在训练亚洲人脸业务时进行有效的评估了。
+
 训练配置文件：train_facenet.py
+![](https://github.com/MrZhousf/tf_facenet/blob/master/pic/3.png?raw=true)
+
+我针对亚洲人脸数据库_CASIA-FaceV5数据集进行了基于官方预训练VGGFace2模型进行预训练，训练机器配置为：
+
+系统：ubuntu 16.04LTS
+
+内存：16GB
+
+CPU：Intel Core I7-6800K x12
+
+GPU：GeForce GTX 1080Ti
+
+训练参数train_tripletloss.py：
+
+image_size=160, embedding_size=512, batch_size=90, max_nrof_epochs=10, epoch_size=500.
+
+训练时间约45小时
+
+同样采用LFW数据集进行评估，准确率为68.467%：
+![](https://github.com/MrZhousf/tf_facenet/blob/master/pic/4.jpeg?raw=true)
+
+而官方预训练VGGFace2模型评估准确率为98.5%：
+![](https://github.com/MrZhousf/tf_facenet/blob/master/pic/5.jpeg?raw=true)
+
+比较下发现针对亚洲人训练后准确率不升反降，不用担心，因为我们用了LFW来评估亚洲人，准确率肯定会下降的，毕竟亚洲人和欧美人长相还是有区别的。
+
+为了验证我们训练的成果是有效的，我们做下以下测试：分别用以上两个模型对同一个亚洲人进行测试看得到的欧式空间距离，如果我们训练的模型的欧式空间距离比官方的模型要小，说明我们的训练是有效的。
+
+运行train目录下的compare.py：
+
+找了两张本人不同时期的照片进行测试
+
+测试我们训练的模型，距离为0.6545：
+![](https://github.com/MrZhousf/tf_facenet/blob/master/pic/8.jpeg?raw=true)
+
+测试官方预训练模型，距离为0.737：
+![](https://github.com/MrZhousf/tf_facenet/blob/master/pic/9.jpeg?raw=true)
+
+很明显，我们训练的成果还是不错的。接下来，我们可以搜集大量的亚洲人脸数据进行训练，让我们的模型准确率提升到99%应该不是很难的事情。要注意的是训练和评估的数据都要用亚洲人脸数据

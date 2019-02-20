@@ -93,6 +93,8 @@ class FaceNet(object):
         max_ckpt = ''
         max_index = 0
         for dir_ckpt in dirs:
+            if dir_ckpt == '.DS_Store':
+                continue
             time_stamp = int(time.mktime(time.strptime(dir_ckpt, '%Y%m%d-%H%M%S')))
             if time_stamp > max_index:
                 max_index = time_stamp
