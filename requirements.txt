@@ -77,7 +77,7 @@ pyOpenSSL==19.0.0
 pyparsing==2.2.0
 python-dateutil==2.7.3
 pytz==2018.5
-PyYAML==3.13
+PyYAML==5.1
 pyzmq==17.1.2
 qtconsole==4.4.2
 QtPy==1.4.2
