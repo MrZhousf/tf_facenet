@@ -7,7 +7,7 @@ backports-abc==0.5
 backports.functools-lru-cache==1.5
 backports.shutil-get-terminal-size==1.0.0
 backports.weakref==1.0.post1
-bleach==3.0.2
+bleach==3.3.0
 certifi==2018.11.29
 cffi==1.11.5
 chardet==3.0.4
