@@ -70,7 +70,7 @@ protobuf==3.6.1
 ptyprocess==0.6.0
 pycparser==2.19
 pycryptodome==3.9.0
-Pygments==2.2.0
+Pygments==2.7.4
 PyMySQL==0.9.3
 PyMysqlDB==0.0.2
 pyOpenSSL==19.0.0
