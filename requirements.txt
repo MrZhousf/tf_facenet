@@ -93,7 +93,7 @@ sklearn==0.0
 SQLAlchemy==1.2.17
 subprocess32==3.5.2
 tensorboard==1.10.0
-tensorflow==1.10.1
+tensorflow==2.5.3
 termcolor==1.1.0
 terminado==0.8.1
 testpath==0.4.2
